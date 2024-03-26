@@ -1,7 +1,12 @@
-import React from 'react'
+import { DashboardLayout } from '@/layouts/dashboard'
+import React, { ReactElement } from 'react'
 
 const Home = () => {
   return <div>Home</div>
 }
+
+Home.getLayout = (page: ReactElement) => (
+  <DashboardLayout>{page}</DashboardLayout>
+)
 
 export default Home
