@@ -28,37 +28,37 @@ const config: Config = {
       },
       colors: {
         brand: {
-          100: '#004DC8',
-          200: '#0044B2',
-          300: '#003C9C',
-          400: '#003385',
-          500: '#003385',
-          600: '#002B6F',
-          700: '#002259',
-          800: '#001A43',
-          900: '#00112C'
+          100: '#4FB4E6',
+          200: '#32A7E2',
+          300: '#1E97D4',
+          400: '#1A82B6',
+          500: '#166D99',
+          600: '#12587C',
+          700: '#0D435E',
+          800: '#092E41',
+          900: '#051923'
         },
         primary: {
-          100: '#6B15E4',
-          200: '#6213D1',
-          300: '#5912BE',
-          400: '#5110AB',
-          500: '#480E98',
-          600: '#3F0C85',
-          700: '#360B72',
-          800: '#2D095F',
-          900: '#24074C'
+          100: '#90DAFF',
+          200: '#7DD4FF',
+          300: '#6ACDFF',
+          400: '#58C7FF',
+          500: '#45C1FF',
+          600: '#33BBFF',
+          700: '#20B5FF',
+          800: '#0DAEFF',
+          900: '#00A6FB'
         },
         secondary: {
-          100: '#DB005F',
-          200: '#C80057',
-          300: '#B6004F',
-          400: '#A40047',
-          500: '#92003F',
-          600: '#800037',
-          700: '#6D002F',
-          800: '#5B0027',
-          900: '#490020'
+          100: '#FCA2CA',
+          200: '#FB93C2',
+          300: '#FB83B9',
+          400: '#FA74B0',
+          500: '#F964A7',
+          600: '#F9559F',
+          700: '#F84596',
+          800: '#F8368D',
+          900: '#F72585'
         }
       }
     }
@@ -67,7 +67,8 @@ const config: Config = {
     require('@tailwindcss/forms'),
     require('@tailwindcss/container-queries'),
     require('tailwindcss-animate'),
-    require('tailwind-scrollbar-hide')
+    require('tailwind-scrollbar-hide'),
+    require('tailwind-scrollbar')
   ]
 }
 export default config

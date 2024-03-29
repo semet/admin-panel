@@ -5,9 +5,16 @@ import {
   QueryClient,
   QueryClientProvider
 } from '@tanstack/react-query'
+import { Inter } from 'next/font/google'
 import Head from 'next/head'
 import { Fragment, useState } from 'react'
 import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
+const interFont = Inter({
+  subsets: ['latin'],
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900']
+})
 
 export default function App(props: TAppPropsWithLayout) {
   const { Component, pageProps } = props
@@ -46,7 +53,11 @@ export default function App(props: TAppPropsWithLayout) {
       <QueryClientProvider client={queryClient}>
         <HydrationBoundary state={pageProps.dehydratedState}>
           <ToastContainer autoClose={1500} />
-          {getLayout(<Component {...pageProps} />)}
+          {getLayout(
+            <main className={interFont.className}>
+              <Component {...pageProps} />
+            </main>
+          )}
         </HydrationBoundary>
       </QueryClientProvider>
     </Fragment>
