@@ -21,7 +21,7 @@ export const menus: Menu[] = [
     id: 1,
     title: 'Dashboard',
     icon: IoIosHome,
-    link: '/dashboard'
+    link: '/'
   },
   {
     id: 2,

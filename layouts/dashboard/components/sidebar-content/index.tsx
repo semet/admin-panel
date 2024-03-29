@@ -1,11 +1,13 @@
-import { Fragment, useState } from 'react'
-import { menus } from './menus'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { Fragment, useState } from 'react'
 import { Collapse } from 'react-collapse'
 import { IoIosArrowDown, IoIosArrowRoundForward } from 'react-icons/io'
 import { twMerge } from 'tailwind-merge'
+import { Menu, menus } from './menus'
 
 export const SidebarContent = () => {
+  const { pathname } = useRouter()
   const [openIndex, setOpenIndex] = useState<number | null>(null)
   const toggleMenu = (index: number) => {
     if (openIndex === index) {
@@ -14,6 +16,15 @@ export const SidebarContent = () => {
       setOpenIndex(index)
     }
   }
+
+  const isActiveParent = (menu: Menu) => {
+    if (menu.children) {
+      return menu.children.some((child) => child.link === pathname)
+    }
+
+    return false
+  }
+
   return (
     <nav className="my-md flex flex-col items-start">
       <ul className="flex w-full flex-col gap-3 px-md">
@@ -25,8 +36,22 @@ export const SidebarContent = () => {
                   href={menu.link}
                   className="group flex items-center gap-2"
                 >
-                  <menu.icon className="text-lg text-slate-500 group-hover:text-primary-800" />
-                  <span className="text-sm text-slate-300 group-hover:text-primary-500">
+                  <menu.icon
+                    className={twMerge([
+                      'text-lg text-slate-500 group-hover:text-primary-800',
+                      pathname === menu.link
+                        ? 'text-primary-800'
+                        : 'text-slate-500'
+                    ])}
+                  />
+                  <span
+                    className={twMerge([
+                      'text-sm text-slate-300 group-hover:text-primary-500',
+                      pathname === menu.link
+                        ? 'font-semibold text-primary-500'
+                        : 'font-normal'
+                    ])}
+                  >
                     {menu.title}
                   </span>
                 </Link>
@@ -39,27 +64,48 @@ export const SidebarContent = () => {
               >
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2">
-                    <menu.icon className="text-lg text-slate-500 group-hover:text-primary-800" />
-                    <span className="text-sm text-slate-300 group-hover:text-primary-500">
+                    <menu.icon
+                      className={twMerge([
+                        'text-lg text-slate-500 group-hover:text-primary-800',
+                        isActiveParent(menu)
+                          ? 'text-primary-800'
+                          : 'text-slate-500'
+                      ])}
+                    />
+                    <span
+                      className={twMerge([
+                        'text-sm text-slate-300 group-hover:text-primary-500',
+                        isActiveParent(menu)
+                          ? 'text-primary-500'
+                          : 'text-slate-300'
+                      ])}
+                    >
                       {menu.title}
                     </span>
                   </div>
                   <IoIosArrowDown
                     className={twMerge([
                       'text-xl text-slate-500 transition-all duration-300 ease-in-out group-hover:text-primary-800',
-                      openIndex === index
+                      openIndex === index || isActiveParent(menu)
                         ? 'rotate-180 transform'
                         : 'rotate-0 transform'
                     ])}
                   />
                 </div>
-                <Collapse isOpened={openIndex === index}>
+                <Collapse
+                  isOpened={openIndex === index || isActiveParent(menu)}
+                >
                   <ul className="mt-2 flex flex-col gap-2 pl-[25px]">
                     {menu.children?.map((child) => (
                       <li key={child.link}>
                         <Link
                           href={child.link}
-                          className="flex items-center gap-1 text-slate-500 transition-all duration-300 ease-in-out hover:ml-[2px] hover:text-primary-800"
+                          className={twMerge([
+                            'flex items-center gap-1 text-slate-500 transition-all duration-300 ease-in-out hover:ml-[2px] hover:text-primary-800',
+                            isActiveParent(menu) && pathname === child.link
+                              ? 'text-primary-800'
+                              : 'text-slate-500'
+                          ])}
                         >
                           <IoIosArrowRoundForward />
                           <span className="text-sm">{child.title}</span>
