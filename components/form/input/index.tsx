@@ -16,6 +16,7 @@ export const Input: FC<TProps> = (props) => {
     rightNode,
     rightNodeClassName,
     required,
+    disabled,
     ...rest
   } = props
 
@@ -64,9 +65,10 @@ export const Input: FC<TProps> = (props) => {
           {...register(name, rules)}
           id={id ?? generatedId}
           {...rest}
+          disabled={disabled}
           className={twMerge([
             'flex-1 border-none text-sm text-gray-700 placeholder-gray-400 ring-0 focus:outline-none focus:ring-0',
-
+            disabled ? 'bg-gray-200 text-gray-500' : '',
             rightNode ? 'rounded-r-none border-r-0' : 'pr-4',
             className
           ])}

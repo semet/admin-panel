@@ -59,16 +59,20 @@ export const CreateTagForm: FC<TProps> = (props) => {
         <Input
           name="name"
           label="Name"
+          required
         />
         <Input
           name="slug"
           label="Slug"
+          required
+          disabled
         />
         <div className="flex gap-2">
           <Button
             title="Cancel"
             size="sm"
             variant="secondary"
+            type="reset"
             onClick={() => {
               reset()
               onCancel()
