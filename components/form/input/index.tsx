@@ -1,15 +1,9 @@
-import { TInputType } from '@/components/type'
-import React, { FC, forwardRef, useId } from 'react'
-import { FieldValues, get, useFormContext } from 'react-hook-form'
+import { FC, useId } from 'react'
+import { get, useFormContext } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
+import { TProps } from './type'
 
-export const Input: FC<
-  TInputType<
-    Record<string, unknown> extends FieldValues
-      ? FieldValues
-      : Record<string, unknown>
-  >
-> = (props) => {
+export const Input: FC<TProps> = (props) => {
   const {
     name,
     rules,
@@ -34,7 +28,7 @@ export const Input: FC<
 
   const error = get(errors, name)
   return (
-    <div className="bg-red flex flex-col gap-1">
+    <div className="flex flex-col gap-1">
       {label && (
         <label
           htmlFor={id ?? generatedId}

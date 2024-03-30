@@ -1,4 +1,6 @@
-export * from './drop-down'
 export * from './badge-container'
 export * from './button'
+export * from './dialog'
+export * from './drop-down'
+export * from './floating-button'
 export * from './reveal-password'

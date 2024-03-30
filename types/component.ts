@@ -7,3 +7,7 @@ export type TVariant =
   | 'outline-dark'
   | 'text'
 export type TSize = 'sm' | 'md' | 'lg'
+
+export type TCancelable = {
+  onCancel: () => void
+}

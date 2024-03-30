@@ -1,6 +1,6 @@
-import React, { FC } from 'react'
-import { TProps } from './type'
+import { FC } from 'react'
 import { twMerge } from 'tailwind-merge'
+import { TProps } from './type'
 
 export const Button: FC<TProps> = (props) => {
   const {
@@ -9,13 +9,14 @@ export const Button: FC<TProps> = (props) => {
     variant = 'primary',
     size = 'md',
     title,
+    icon,
     ...rest
   } = props
   return (
     <button
       type={type}
       className={twMerge([
-        'rounded-md px-4 py-2  transition duration-300 ease-in-out',
+        'flex items-center justify-center rounded-md  px-4 py-2 transition duration-300 ease-in-out',
         'hover:shadow-md disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none disabled:hover:shadow-none',
         variant === 'primary' &&
           'bg-primary-500 text-white hover:bg-primary-700 disabled:bg-primary-300',
@@ -38,6 +39,7 @@ export const Button: FC<TProps> = (props) => {
       ])}
       {...rest}
     >
+      {icon && icon}
       {title}
     </button>
   )

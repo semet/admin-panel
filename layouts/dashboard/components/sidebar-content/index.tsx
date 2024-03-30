@@ -17,9 +17,16 @@ export const SidebarContent = () => {
     }
   }
 
+  const currentPaths = pathname.split('/')
+  const firstPath = currentPaths[1]
+
   const isActiveParent = (menu: Menu) => {
     if (menu.children) {
-      return menu.children.some((child) => child.link === pathname)
+      return menu.children.some(
+        (child) =>
+          child.link === pathname ||
+          child.link === firstPath.padStart(firstPath.length + 1, '/')
+      )
     }
 
     return false
@@ -102,7 +109,9 @@ export const SidebarContent = () => {
                           href={child.link}
                           className={twMerge([
                             'flex items-center gap-1 text-slate-500 transition-all duration-300 ease-in-out hover:ml-[2px] hover:text-primary-800',
-                            isActiveParent(menu) && pathname === child.link
+                            pathname === child.link ||
+                            firstPath.padStart(firstPath.length + 1, '/') ===
+                              child.link
                               ? 'text-primary-800'
                               : 'text-slate-500'
                           ])}

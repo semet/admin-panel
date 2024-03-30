@@ -8,4 +8,5 @@ export type TProps = DetailedHTMLProps<
   variant?: TVariant
   size?: TSize
   isLoading?: boolean
+  icon?: React.ReactNode
 }
