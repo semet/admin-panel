@@ -5,6 +5,9 @@ import { Props as ReactSelectProps } from 'react-select'
 
 export type TInputType<TFormValues extends Record<string, unknown>> =
   DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> &
+    TBaseInputType<TFormValues>
+export type TFileInputType<TFormValues extends Record<string, unknown>> =
+  DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> &
     TBaseInputType<TFormValues> &
     TAdditionInputType
 

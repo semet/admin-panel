@@ -1,18 +1,17 @@
-export type TBlog = {
-  id: string
-  title: string
-  category: string
-  content: string
-  tags: string[]
-  published: boolean
+import { Tables } from '@/types'
+
+export type TCategoryCreate = Omit<Tables<'categories'>, 'id' | 'created_at'>
+//TODO:: change name to POST INPUT
+export type TPostCreate = Omit<Tables<'posts'>, 'id' | 'created_at'> & {
+  category: TSelectInput
+  tags: TSelectInput[]
 }
 
-export type TBlogForm = Omit<TBlog, 'id'>
+export type TPostPayload = Omit<Tables<'posts'>, 'id' | 'created_at'>
 
-export type TTag = {
-  id: string
-  name: string
-  slug: string
+export type TTagCreate = Omit<Tables<'tags'>, 'id' | 'created_at'>
+
+export type TSelectInput = {
+  label: string
+  value: string
 }
-
-export type TTagForm = Omit<TTag, 'id'>

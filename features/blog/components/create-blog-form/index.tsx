@@ -1,23 +1,54 @@
 import { Button } from '@/components/base'
 import { CheckBox, Input, MDXEditor, Select } from '@/components/form'
-import { TBlogForm, formattedTags } from '@/features/blog'
+import {
+  TPostCreate,
+  TPostPayload,
+  createBlogRequest,
+  formattedCategories,
+  formattedTags
+} from '@/features/blog'
+import { useQueryActions } from '@/hooks'
+import { tagsFormatter } from '@/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
 import { FC, Fragment } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import { dummyCategory } from './dummy'
+import { toast } from 'react-toastify'
 import { schema } from './schema'
 
 export const CreateBlogForm: FC = () => {
   const tags = formattedTags()
+  const categories = formattedCategories()
 
-  const formMethods = useForm<TBlogForm>({
+  const { invalidateQueries } = useQueryActions(['blogs'])
+
+  const formMethods = useForm<TPostCreate>({
     resolver: zodResolver(schema)
   })
 
   const { handleSubmit } = formMethods
 
+  const { mutate } = useMutation({
+    mutationFn: async (data: TPostPayload) => createBlogRequest(data),
+    onSuccess: () => {
+      toast.success('Blog created successfully')
+      invalidateQueries()
+    },
+    onError: (error) => {
+      toast.error(error.message)
+    }
+  })
+
   const onSubmit = handleSubmit((data) => {
-    console.log(data)
+    const payload: TPostPayload = {
+      author: '1',
+      title: data.title,
+      content: data.content,
+      tags: tagsFormatter(data.tags),
+      category: data.category.value,
+      slug: data.title.toLowerCase().replace(/\s/g, '-')
+    }
+    mutate(payload)
   })
 
   return (
@@ -36,7 +67,7 @@ export const CreateBlogForm: FC = () => {
             name="category"
             label="Category"
             placeholder="Blog Category"
-            options={dummyCategory}
+            options={categories}
           />
 
           <Select
