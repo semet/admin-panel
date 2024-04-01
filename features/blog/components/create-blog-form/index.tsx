@@ -1,13 +1,15 @@
 import { Button } from '@/components/base'
 import { CheckBox, Input, MDXEditor, Select } from '@/components/form'
-import { TBlogForm } from '@/features/blog'
+import { TBlogForm, formattedTags } from '@/features/blog'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { FC, Fragment } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import { dummyCategory, dummyTags } from './dummy'
+import { dummyCategory } from './dummy'
 import { schema } from './schema'
 
 export const CreateBlogForm: FC = () => {
+  const tags = formattedTags()
+
   const formMethods = useForm<TBlogForm>({
     resolver: zodResolver(schema)
   })
@@ -42,7 +44,7 @@ export const CreateBlogForm: FC = () => {
             label="Tags"
             isSearchable
             isMulti
-            options={dummyTags}
+            options={tags}
             containerClassName="col-span-2"
             placeholder="Select tags"
           />

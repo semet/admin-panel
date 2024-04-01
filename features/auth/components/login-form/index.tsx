@@ -3,7 +3,6 @@ import { CheckBox, Input } from '@/components/form'
 import { loginRequest } from '@/features/auth'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
-import { setCookie } from 'cookies-next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Fragment, useState } from 'react'
@@ -14,6 +13,7 @@ import { TLoginRequest } from './type'
 
 export const LoginForm = () => {
   const { push } = useRouter()
+
   const [inputType, setInputType] = useState<'text' | 'password'>('password')
   const formMethods = useForm<TLoginRequest>({
     resolver: zodResolver(schema),
@@ -26,18 +26,8 @@ export const LoginForm = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: (data: TLoginRequest) => loginRequest(data),
     onSuccess: async (data) => {
-      await data.user
-        .getIdTokenResult()
-        .then(({ token, expirationTime }) => {
-          setCookie('token', token, {
-            expires: new Date(expirationTime),
-            path: '/',
-            sameSite: 'strict'
-          })
-        })
-        .then(() => {
-          push('/')
-        })
+      toast.success('Login success')
+      push('/')
     },
     onError: (error) => {
       toast.error(error.message)

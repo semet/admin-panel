@@ -1,7 +1,9 @@
 import { Button } from '@/components/base'
 import { Input } from '@/components/form'
-import { TTagForm } from '@/features/blog'
+import { TTagForm, createTagRequest } from '@/features/blog'
+import { useQueryActions } from '@/hooks'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
 import { FC, useEffect } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
@@ -10,6 +12,9 @@ import { TProps } from './type'
 
 export const CreateTagForm: FC<TProps> = (props) => {
   const { onCancel, onClose } = props
+
+  const { invalidateQueries } = useQueryActions(['tags'])
+
   const formMethods = useForm<TTagForm>({
     resolver: zodResolver(schema)
   })
@@ -29,10 +34,20 @@ export const CreateTagForm: FC<TProps> = (props) => {
     return () => subscription.unsubscribe()
   })
 
+  const { mutate } = useMutation({
+    mutationFn: async (data: TTagForm) => createTagRequest(data),
+    onSuccess: () => {
+      toast.success('Tag created successfully')
+      invalidateQueries()
+      onClose()
+    },
+    onError: (error) => {
+      toast.error(error.message)
+    }
+  })
+
   const onSubmit = handleSubmit((data) => {
-    console.log(data)
-    toast.success('Tag created successfully')
-    onClose()
+    mutate(data)
   })
   return (
     <FormProvider {...formMethods}>
