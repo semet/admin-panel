@@ -1,9 +1,7 @@
 import { Button } from '@/components/base'
 import { Input } from '@/components/form'
 import { TTagForm } from '@/features/blog'
-import { db } from '@/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { push, ref, set } from 'firebase/database'
 import { FC, useEffect } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
@@ -32,23 +30,9 @@ export const CreateTagForm: FC<TProps> = (props) => {
   })
 
   const onSubmit = handleSubmit((data) => {
-    const payload = {
-      name: data.name,
-      slug: data.slug
-    }
-    const newSlugRef = push(ref(db, 'tags'), payload)
-
-    set(newSlugRef, {
-      ...payload
-    })
-      .then(() => {
-        toast.success('Tag created successfully')
-        reset()
-        onClose && onClose()
-      })
-      .catch((error) => {
-        toast.error('Error creating tag')
-      })
+    console.log(data)
+    toast.success('Tag created successfully')
+    onClose()
   })
   return (
     <FormProvider {...formMethods}>

@@ -1,2 +1,2 @@
 export * from './decoder'
-export * from './firebase'
+export * from './suppabase'
