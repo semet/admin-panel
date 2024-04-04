@@ -1,5 +1,7 @@
 import { LoginForm } from '@/features/auth'
 import { AuthLayout } from '@/layouts/auth'
+import { createServerPropsClient } from '@/utils'
+import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { Fragment, ReactElement } from 'react'
 
@@ -24,3 +26,19 @@ const Login = () => {
 Login.getLayout = (page: ReactElement) => <AuthLayout>{page}</AuthLayout>
 
 export default Login
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { auth } = createServerPropsClient(context)
+  const { data, error } = await auth.getUser()
+  if (data) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      }
+    }
+  }
+  return {
+    props: {}
+  }
+}
