@@ -9,3 +9,6 @@ html {
 .ReactCollapse--collapse {
   transition: height 300ms;
 }
+.tiptap {
+  @apply prose-sm -top-4 min-h-[40vh] bg-white focus:outline-none;
+}

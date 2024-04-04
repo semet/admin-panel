@@ -68,7 +68,8 @@ const config: Config = {
     require('@tailwindcss/container-queries'),
     require('tailwindcss-animate'),
     require('tailwind-scrollbar-hide'),
-    require('tailwind-scrollbar')
+    require('tailwind-scrollbar'),
+    require('@tailwindcss/typography')
   ]
 }
 export default config

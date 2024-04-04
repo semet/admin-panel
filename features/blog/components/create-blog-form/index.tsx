@@ -1,5 +1,6 @@
 import { Button } from '@/components/base'
-import { CheckBox, Input, MDXEditor, Select } from '@/components/form'
+import { TextEditor } from '@/components/editor'
+import { CheckBox, Input, Select } from '@/components/form'
 import {
   TPostCreate,
   TPostPayload,
@@ -48,7 +49,8 @@ export const CreateBlogForm: FC = () => {
       category: data.category.value,
       slug: data.title.toLowerCase().replace(/\s/g, '-')
     }
-    mutate(payload)
+    console.log(payload)
+    // mutate(payload)
   })
 
   return (
@@ -79,10 +81,9 @@ export const CreateBlogForm: FC = () => {
             containerClassName="col-span-2"
             placeholder="Select tags"
           />
-          <MDXEditor
-            name="content"
-            className="col-span-2"
-          />
+          <div className="col-span-2">
+            <TextEditor name="content" />
+          </div>
 
           <div className="col-span-2 flex justify-between">
             <CheckBox

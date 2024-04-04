@@ -96,6 +96,10 @@ export const Select: FC<TProps> = (props) => {
                 option: (styles) => ({
                   ...styles,
                   fontSize: '14px'
+                }),
+                menu: (styles) => ({
+                  ...styles,
+                  zIndex: 20
                 })
               }}
               value={field.value}
