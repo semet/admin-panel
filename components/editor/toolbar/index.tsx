@@ -13,6 +13,10 @@ import {
   MdFormatStrikethrough,
   MdFormatUnderlined,
   MdKeyboardReturn,
+  MdOutlineFormatAlignCenter,
+  MdOutlineFormatAlignJustify,
+  MdOutlineFormatAlignLeft,
+  MdOutlineFormatAlignRight,
   MdOutlineImage,
   MdOutlineLink,
   MdOutlineLinkOff,
@@ -183,6 +187,30 @@ export const Toolbar: FC<TProps> = (props) => {
           icon={<MdOutlineLinkOff />}
           onClick={() => editor.chain().focus().unsetLink().run()}
           disabled={!editor.isActive('link')}
+        />
+        <EditorButton
+          title=""
+          icon={<MdOutlineFormatAlignLeft />}
+          onClick={() => editor.chain().focus().setTextAlign('left').run()}
+          active={editor.isActive({ textAlign: 'left' })}
+        />
+        <EditorButton
+          title=""
+          icon={<MdOutlineFormatAlignCenter />}
+          onClick={() => editor.chain().focus().setTextAlign('center').run()}
+          active={editor.isActive({ textAlign: 'center' })}
+        />
+        <EditorButton
+          title=""
+          icon={<MdOutlineFormatAlignRight />}
+          onClick={() => editor.chain().focus().setTextAlign('right').run()}
+          active={editor.isActive({ textAlign: 'right' })}
+        />
+        <EditorButton
+          title=""
+          icon={<MdOutlineFormatAlignJustify />}
+          onClick={() => editor.chain().focus().setTextAlign('justify').run()}
+          active={editor.isActive({ textAlign: 'justify' })}
         />
       </div>
     </div>
